@@ -5,14 +5,14 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
 app.set('view engine', 'ejs');
 
 app.listen(3000, function () {
     console.log("listening")
 })
 
-var items = ["Buy Food ","Cook Food","Eat Food"];
+var items = ["Buy Food ", "Cook Food", "Eat Food"];
+var workitems = ["work item"];
 
 app.get("/", function (req, res) {
 
@@ -45,9 +45,9 @@ app.get("/", function (req, res) {
         default:
             day = "Sunday"
     } */
-    
-   
-  
+
+
+
     var option = {
         day: "numeric",
         month: "long",
@@ -57,21 +57,44 @@ app.get("/", function (req, res) {
     var today = new Date();
 
     var day = today.toLocaleDateString("en-US", option);
-
-    
-    res.render("list", { kindofday: day, ditems: items});
-
-
+    res.render("list", { listtitle: day, ditems: items });
 });
+
 
 
 app.post("/", function (req, res) {
 
-    item = req.body.newitem;
+    let item = req.body.newitem;
 
-    res.redirect("/");
+    console.log(req.body.listtitle);
 
+    if(req.body.button == "work")
+    {
+      workitems.push(item);
+      res.redirect("/work");
+    }
+    else
+    {
     items.push(item);
-
+    res.redirect("/");
+    }
 });
 
+app.get("/work", function (req, res) {
+
+    res.render("list", { listtitle: "work", ditems: workitems })
+
+})
+
+app.post("/work", function (req, res) {   
+
+    let item = req.body.newitem;
+    workitems.push(item);
+    res.redirect("/work");
+
+})
+
+app.get("/about",function(req,res)
+{
+    res.render("about");
+});

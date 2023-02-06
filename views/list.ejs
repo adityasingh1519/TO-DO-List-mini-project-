@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>TODOList</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
+<%- include('headers'); -%>
+
 
 <body>
 
     <div class="box" id="heading">
         <h1>
-            <%= kindofday %>
+            <%= listtitle %>
         </h1>
     </div>
 
@@ -25,7 +20,7 @@
 
             <form class="item" action="/" method="post">
                 <input type="text" name="newitem" placeholder="write your text">
-                <button type="submit">+</button>
+                <button type="submit" name="button" value="<%= listtitle %>">+</button>
             </form>
 
     </div>
@@ -33,4 +28,5 @@
 
 </body>
 
-</html>
+<%- include('footer'); -%>
+
